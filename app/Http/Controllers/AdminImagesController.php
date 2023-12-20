@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use App\Models\Image;
 
 class AdminImagesController extends Controller
 {
@@ -20,10 +21,23 @@ class AdminImagesController extends Controller
     public function store(Request $request)
     {
 
-        //ddd(request()->file('image'));
+        //validate input
+        $attributes = $request->validate([
+            'title' => 'required',
+            'slug' => 'required|unique:images,slug',
+            'image' => 'required|image'
+        ]);
 
-        $path = $request->file('image')->store('images');
-
-        return redirect('/')->with('success', 'Your image has been saved. Check storage directory.');
-    }
+        //store image
+            try{            
+                $attributes['image'] = $request->file('image')->store('images', 'public');
+            } catch (Exception $e){
+                throw ValidationException::withMessages([
+                    'email' => 'Your image could not be uploaded.']);
+            }
+        //create image
+        Image::create($attributes);
+        return redirect('/')
+                ->with('success', 'Your image is saved!');
+        }
 }
