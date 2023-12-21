@@ -6,7 +6,7 @@
             WELCOME FOR THE FIRST TIME!
         </div>
 
-       @include ('images._upload-image-form')
+       @include ('admin.images._upload-image-form')
 
         <!-- We have a Images collection --> 
         @if ($images->count())       

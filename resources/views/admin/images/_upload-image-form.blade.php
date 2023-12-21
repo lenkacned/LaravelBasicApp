@@ -1,5 +1,5 @@
 @admin
-    <form method="POST" action="/admin/images/" enctype="multipart/form-data">
+    <form method="POST" action="/admin/images" enctype="multipart/form-data">
         @csrf
         <x-form.input name="title" type="string" required />
         <x-form.input name="slug" type="string" required />

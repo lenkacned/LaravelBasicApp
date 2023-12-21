@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ImageController;
-use App\Http\Controllers\AdminImagesController;
+use App\Http\Controllers\AdminImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +19,6 @@ use App\Http\Controllers\AdminImagesController;
 
 Route::get('/',[ImageController::class, 'index']);
 Route::get('images/{image:slug}', [ImageController::class, 'show']);
-
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
 Route::middleware('guest')->group(function () {
@@ -30,7 +29,10 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('can:admin')->group(function () {
-    Route::get('admin/images', [AdminImagesController::class, 'index']);
-    Route::get('admin/images/upload', [AdminImagesController::class, 'create']);
-    Route::post('admin/images', [AdminImagesController::class, 'store']);
+    //special admin settings page
+    Route::get('admin/images', [AdminImageController::class, 'index']);
+    Route::get('admin/images/upload', [AdminImageController::class, 'create']);
+    //admin's Image store & delete options
+    Route::post('admin/images', [AdminImageController::class, 'store']);
+    Route::delete('admin/images/{image}', [AdminImageController::class, 'destroy']);
 });
