@@ -33,9 +33,9 @@ password: member</br>
 <em>'links' => [public_path('storage') => storage_path('app/public')]<em> </br>
 
 
-## Next
+## Future ideas
 
-The Admin dashboard page is in progress and should include: </br>
+The Admin dashboard page is in dev phase and it should include: </br>
 <pre>
     1. creating an image as an instance of the Image class with specific parameters </br>
     2. saving it to the database,</br>
