@@ -1,6 +1,5 @@
 ## Application about
 This application includes basic Laravel user authentication and admin's CRUD functionality over images. 
-###### by Lotos dev
 
 ## Application on start
 </br>
@@ -32,6 +31,7 @@ password: member</br>
 **Laravel links in filesystems.php:** </br>
 <em>'links' => [public_path('storage') => storage_path('app/public')]<em> </br>
 
+###### by Lotos dev 
 
 ## Future ideas
 
