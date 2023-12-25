@@ -19,7 +19,7 @@ email: member@example.com</br>
 password: member</br>
 </br>
 
-**Symlink created through Laravel sym links with** </br>
+**Symlink (created through Laravel sym links)** </br>
 >> php artisan storage:link</br>
 </br>
 
