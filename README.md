@@ -1,6 +1,6 @@
-## App about by Lotos
-
+## Application about
 This application includes basic Laravel user authentication and admin's CRUD functionality over images. 
+###### by Lotos dev
 
 ## Application on start
 </br>
