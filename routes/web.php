@@ -18,21 +18,30 @@ use App\Http\Controllers\AdminImageController;
 */
 
 Route::get('/',[ImageController::class, 'index']);
-Route::get('images/{image:slug}', [ImageController::class, 'show']);
-Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::middleware('guest')->group(function () {
-    Route::get('register' , [RegisterController::class, 'create']);
-    Route::post('register' , [RegisterController::class, 'store']);
-    Route::get('login', [SessionsController::class, 'create']);
-    Route::post('sessions', [SessionsController::class, 'store'])->middleware('guest');
-});
+Route::get('register' , [RegisterController::class, 'create']);
+Route::post('register' , [RegisterController::class, 'store']);
+Route::get('login', [SessionsController::class, 'create']);
+Route::post('sessions', [SessionsController::class, 'store']);
+Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
+Route::get('images/{image:slug}', [ImageController::class, 'show']);    
+
+// If only admin can register a user show only guest view for all non-logged in users
+// and do not show registration form. Show only login form and guest view.
+// Create view only for guests. Guests should not log in.
+// Implement 'can' middleware for authorization actions.
+// Route::middleware('guest')->group(function () {
+// });
 
 Route::middleware('can:admin')->group(function () {
-    //special admin settings page
-    Route::get('admin/images', [AdminImageController::class, 'index']);
-    Route::get('admin/images/upload', [AdminImageController::class, 'create']);
-    //admin's Image store & delete options
-    Route::post('admin/images', [AdminImageController::class, 'store']);
-    Route::delete('admin/images/{image}', [AdminImageController::class, 'destroy']);
+    Route::prefix('admin')->group(function () {
+        Route::prefix('images')->group(function () {
+            //special admin's settings page
+            Route::get('/', [AdminImageController::class, 'index']);
+            Route::get('/upload', [AdminImageController::class, 'create']);
+            //admin's Image store & delete options
+            Route::post('/', [AdminImageController::class, 'store']);
+            Route::delete('/{image}', [AdminImageController::class, 'destroy']);
+       });
+   });
 });

@@ -13,7 +13,7 @@
            <x-images-grid :images="$images"/>
            {{$images->links()}}
         @else
-            <p class="text-center">No images yes. Please check back later.</p>
+            <p class="text-center">No images yet. Please check back later.</p>
         @endif   
     </main>
 </x-layout>

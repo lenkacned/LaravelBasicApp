@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Intervention\Image\ImageManager;
+use Intervention\Image\Gd\Driver;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Image;
 use App\Http\Requests\StoreImageRequest;
-// use Intervention\Image\ImageManager;
-// use Intervention\Image\Drivers\Gd\Driver;
 
 class AdminImageController extends Controller
 {
@@ -26,13 +26,18 @@ class AdminImageController extends Controller
     public function store(StoreImageRequest  $request): RedirectResponse
     {
         // The incoming request is valid
- 
+
         // Retrieve the validated input data
         $attributes = $request->validated();
 
-        //store image
+
+        //store image and optimize it
             try{            
-                $attributes['image'] = $attributes['image']->store('images','public');
+               $attributes['image'] = Storage::disk('public')->putFile('images', $attributes['image']);
+
+                //Optimize the image
+                $this->optimize($attributes['image']);
+
             } catch (Exception $e){
                 throw ValidationException::withMessages([
                     'email' => 'Your image could not be uploaded.']);
@@ -47,20 +52,22 @@ class AdminImageController extends Controller
     //Delete an image
     public function destroy(Image $image)
     {
-        // ddd($image->image);
         $image->delete();
-        if(is_file($image->image)){
-            Storage::delete($image->image);
+        if(Storage::disk('public')->exists($image->image)){
+            Storage::disk('public')->delete($image->image);
         }
         return back()->with('success', 'Your image has been deleted!');
     }
-    public function optimize(string $path){
+    public function optimize(string $img_path){
+
+        //create full image path to storage image directory
+        $full_img_path = Storage::disk('public')->path($img_path);
+
         // create image manager with desired driver
-        $manager = new ImageManager(new Driver());
+        $manager = new ImageManager(['driver' => 'gd']);
 
-        // to finally create image instances
-        $image = $manager->make($path)->resize(200, 200);
-
-        $image->toPng()->save('images/foo.png');
+        // read image from file system & save modified image in new format 
+        $image = $manager->make($full_img_path)->resize(300,300)->save($full_img_path, 10);
+        
     }
 }

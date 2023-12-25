@@ -1,6 +1,27 @@
 ## About my app
 
-This application includes basic Laravel user authentication and admin's image upload functionality
+This application includes basic Laravel user authentication and admin's CRUD functionality over images. 
+
+## Application on start
+
+Database seed with: </br>
+>> php artisan migrate:fresh --seed </br>
+
+Log in as Admin with credentials:</br>
+email: admin@example.com</br>
+password: admin</br>
+</br>
+Log in as Member with credentials:</br>
+email: member@example.com</br>
+password: member</br>
+</br>
+Symlink created through Laravel sym links with </br>
+>> php artisan storage:link</br>
+</br>
+Symlink: ./public/storage -> /mnt/d/Laravel_8/basic/storage/app/public</br>
+
+
+## Next
 
 The Admin dashboard page is in progress and should include: </br>
 <pre>
@@ -9,7 +30,5 @@ The Admin dashboard page is in progress and should include: </br>
     3. list of all images,</br>
     4. edit and delete image objects</br>
 </pre>
-Something about sym link does not seems to work to me (although the sym link is made) but after uploading the image it is saved in the storage directory. </br>
- >> INFO  The [public/storage] link has been connected to [storage/app/public].
 
  

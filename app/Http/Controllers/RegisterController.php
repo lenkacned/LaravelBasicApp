@@ -17,8 +17,9 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'username' => 'required|min:3|max:255|unique:users,username',
             'email' => 'required|email|max:255|unique:users,email',
-            'password' => 'required|min:7|max:255' 
+            'password' => 'required' 
         ]);
+        //apply hashing algorithm for password
         $user = User::create($attributes);
 
         //log the user in
