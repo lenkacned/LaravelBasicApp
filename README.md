@@ -19,6 +19,9 @@ Symlink created through Laravel sym links with </br>
 >> php artisan storage:link</br>
 </br>
 Symlink: ./public/storage -> /mnt/d/Laravel_8/basic/storage/app/public</br>
+</br>
+Laravel links in filesystems.php:</br>
+>> 'links' => [public_path('storage') => storage_path('app/public')]</br>
 
 
 ## Next
