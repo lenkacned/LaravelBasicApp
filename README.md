@@ -3,25 +3,34 @@
 This application includes basic Laravel user authentication and admin's CRUD functionality over images. 
 
 ## Application on start
+</br>
 
-Database seed with: </br>
+**Database seeding:** </br>
 >> php artisan migrate:fresh --seed </br>
+</br>
 
 **Log in as Admin with credentials:** </br>
 email: admin@example.com</br>
 password: admin</br>
 </br>
+
 **Log in as Member with credentials:** </br>
 email: member@example.com</br>
 password: member</br>
 </br>
+
 **Symlink created through Laravel sym links with** </br>
 >> php artisan storage:link</br>
 </br>
-**Symlink: ./public/storage -> /mnt/d/Laravel_8/basic/storage/app/public** </br>
+
+**Symlink:**
+```diff
++ >> ./public/storage -> /mnt/d/Laravel_8/basic/storage/app/public
+```
 </br>
+
 **Laravel links in filesystems.php:** </br>
->> 'links' => [public_path('storage') => storage_path('app/public')]</br>
+<em>'links' => [public_path('storage') => storage_path('app/public')]<em> </br>
 
 
 ## Next
